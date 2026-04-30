@@ -19,7 +19,7 @@ enum AuthContracts {
     /// - throws: 失敗時
     enum Login {
         struct Params { let id: String, password: String }
-        protocol UseCase: LiUseCaseStrategy.AsyncThrowsExecute<Params, Void> {}
+        protocol UseCase: AsyncThrowsExecutor<Params, Void> {}
     }
     
     /// SignUp UseCase
@@ -34,7 +34,7 @@ enum AuthContracts {
             let mail: String
             let id: String
         }
-        protocol UseCase: LiUseCaseStrategy.AsyncThrowsExecute<Params, Void> {}
+        protocol UseCase: AsyncThrowsExecutor<Params, Void> {}
     }
 }
 

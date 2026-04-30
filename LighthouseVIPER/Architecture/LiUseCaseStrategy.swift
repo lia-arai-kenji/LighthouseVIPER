@@ -6,111 +6,108 @@
 //
 
 import Foundation
-
-enum LiUseCaseStrategy {
     
-    /// 実装時にデータ型を確定する前の仮のデータ型設定
-    protocol AssociatedTypeIO {
-        associatedtype Input
-        associatedtype Output
-    }
-    
-    /// Strategy パターンの適用で1メソッド1クラスを実現する
-    
-    // MARK: SyncUseCase
-    protocol Execute<Input, Output>: AssociatedTypeIO {
-        
-        func execute(_ input: Input) -> Output
-    }
-    protocol Get<Input, Output>: AssociatedTypeIO {
-        
-        func get(_ input: Input) -> Output
-    }
-    protocol Set<Input, Output>: AssociatedTypeIO {
-        
-        func set(_ input: Input)
-    }
-    protocol GetSet<Input, Output>: Get, LiUseCaseStrategy.Set {}
-    
-    // MARK: AsyncUseCase
-    protocol AsyncExecute<Input, Output>: AssociatedTypeIO {
-        
-        func execute(_ input: Input) async -> Output
-    }
-    protocol AsyncGet<Input, Output>: AssociatedTypeIO {
-        
-        func get(_ input: Input) async -> Output
-    }
-    protocol AsyncSet<Input, Output>: AssociatedTypeIO {
-        
-        func set(_ input: Input) async
-    }
-    protocol AsyncGetSet<Input, Output>: AsyncGet, AsyncSet {}
-    
-    // MARK: ThrowsUseCase
-    protocol ThrowsExecute<Input, Output>: AssociatedTypeIO {
-        
-        func execute(_ input: Input) throws -> Output
-    }
-    protocol ThrowsGet<Input, Output>: AssociatedTypeIO {
-        
-        func get(_ input: Input) throws -> Output
-    }
-    protocol ThrowsSet<Input, Output>: AssociatedTypeIO {
-        
-        func set(_ input: Input) throws
-    }
-    protocol ThrowsGetSet<Input, Output>: ThrowsGet, ThrowsSet {}
-    
-    // MARK: AsyncThrowsUseCase
-    protocol AsyncThrowsExecute<Input, Output>: AssociatedTypeIO {
-        
-        func execute(_ input: Input) async throws -> Output
-    }
-    protocol AsyncThrowsGet<Input, Output>: AssociatedTypeIO {
-        
-        func get(_ input: Input) async throws -> Output
-    }
-    protocol AsyncThrowsSet<Input, Output>: AssociatedTypeIO {
-        
-        func set(_ input: Input) async throws
-    }
-    protocol AsyncThrowsGetSet<Input, Output>: AsyncThrowsGet, AsyncThrowsSet {}
-    
+/// 実装時にデータ型を確定する前の仮のデータ型設定
+protocol AssociatedTypeIO {
+    associatedtype Input
+    associatedtype Output
 }
+
+/// Strategy パターンの適用で1メソッド1クラスを実現する
+
+// MARK: SyncUseCase
+protocol Executor<Input, Output>: AssociatedTypeIO {
+    
+    func execute(_ input: Input) -> Output
+}
+protocol Getter<Input, Output>: AssociatedTypeIO {
+    
+    func get(_ input: Input) -> Output
+}
+protocol Setter<Input, Output>: AssociatedTypeIO {
+    
+    func set(_ input: Input)
+}
+protocol GetSet<Input, Output>: Getter, Setter {}
+
+// MARK: AsyncUseCase
+protocol AsyncExecutor<Input, Output>: AssociatedTypeIO {
+    
+    func execute(_ input: Input) async -> Output
+}
+protocol AsyncGetter<Input, Output>: AssociatedTypeIO {
+    
+    func get(_ input: Input) async -> Output
+}
+protocol AsyncSetter<Input, Output>: AssociatedTypeIO {
+    
+    func set(_ input: Input) async
+}
+protocol AsyncGetterSetter<Input, Output>: AsyncGetter, AsyncSetter {}
+
+// MARK: ThrowsUseCase
+protocol ThrowsExecutor<Input, Output>: AssociatedTypeIO {
+    
+    func execute(_ input: Input) throws -> Output
+}
+protocol ThrowsGetter<Input, Output>: AssociatedTypeIO {
+    
+    func get(_ input: Input) throws -> Output
+}
+protocol ThrowsSetter<Input, Output>: AssociatedTypeIO {
+    
+    func set(_ input: Input) throws
+}
+protocol ThrowsGetterSetter<Input, Output>: ThrowsGetter, ThrowsSetter {}
+
+// MARK: AsyncThrowsUseCase
+protocol AsyncThrowsExecutor<Input, Output>: AssociatedTypeIO {
+    
+    func execute(_ input: Input) async throws -> Output
+}
+protocol AsyncThrowsGetter<Input, Output>: AssociatedTypeIO {
+    
+    func get(_ input: Input) async throws -> Output
+}
+protocol AsyncThrowsSetter<Input, Output>: AssociatedTypeIO {
+    
+    func set(_ input: Input) async throws
+}
+protocol AsyncThrowsGetSet<Input, Output>: AsyncThrowsGetter, AsyncThrowsSetter {}
+    
 // MARK: input void extension
-extension LiUseCaseStrategy.Execute where Input == Void {
+extension Executor where Input == Void {
     
     func execute() -> Output { execute(()) }
 }
-extension LiUseCaseStrategy.Get where Input == Void {
+extension Getter where Input == Void {
     
     func get() -> Output { get(()) }
 }
 
-extension LiUseCaseStrategy.AsyncExecute where Input == Void {
+extension AsyncExecutor where Input == Void {
     
     func execute() async -> Output { await execute(()) }
 }
-extension LiUseCaseStrategy.AsyncGet where Input == Void {
+extension AsyncGetter where Input == Void {
     
     func get() async -> Output { await get(()) }
 }
 
-extension LiUseCaseStrategy.ThrowsExecute where Input == Void {
+extension ThrowsExecutor where Input == Void {
     
     func execute() throws -> Output { try execute(()) }
 }
-extension LiUseCaseStrategy.ThrowsGet where Input == Void {
+extension ThrowsGetter where Input == Void {
     
     func get() throws -> Output { try get(()) }
 }
 
-extension LiUseCaseStrategy.AsyncThrowsExecute where Input == Void {
+extension AsyncThrowsExecutor where Input == Void {
     
     func execute() async throws -> Output { try await execute(()) }
 }
-extension LiUseCaseStrategy.AsyncThrowsGet where Input == Void {
+extension AsyncThrowsGetter where Input == Void {
     
     func get() async throws -> Output { try await get(()) }
 }
