@@ -2,16 +2,18 @@
 //  BaseViewController.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/03/03.
+//  Created by Kenji Arai on 2026/03/03.
 //
 
 import UIKit
 import Swinject
 
-@MainActor
 class BaseViewController: UIViewController {
+    func startIndicator() {
+        
+    }
     
-    var container: Container?
-    
-    deinit {}
+    func stopIndicator() {
+        
+    }
 }

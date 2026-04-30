@@ -2,7 +2,7 @@
 //  AuthWrapper.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/02/05.
+//  Created by Kenji Arai on 2026/02/05.
 //
 
 protocol AuthWrapper {
@@ -18,7 +18,4 @@ class AuthWrapperImpl: AuthWrapper {
         }
         throw AuthError()
     }
-
-
-    
 }

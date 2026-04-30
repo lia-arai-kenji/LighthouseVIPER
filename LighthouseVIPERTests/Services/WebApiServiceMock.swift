@@ -2,7 +2,7 @@
 //  WebApiServiceMock.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/01/23.
+//  Created by Kenji Arai on 2026/01/23.
 //
 
 import Foundation
@@ -12,7 +12,7 @@ final class WebApiServiceMock: WebApiService {
     
     var abc: String = ""
     func getGreetingSentence(word: String) async -> String {
-        return abc
+        return await abc
     }
     
     func fetchGreetingReply(greeting: String) async -> String {

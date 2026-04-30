@@ -2,14 +2,14 @@
 //  SignUpInteractorMock.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/03/03.
+//  Created by Kenji Arai on 2026/03/03.
 //
 
 @testable import LighthouseVIPER
 
-struct SignUpInteractorMock: AuthContracts.SignUp.UseCase {
+struct SignUpInteractorMock: AuthUseCases.SignUp {
         
-    func execute(_ input: LighthouseVIPER.AuthContracts.SignUp.Params) async throws -> () {
+    func execute(_ input: AuthUseCases.SignUpParams) async throws -> () {
         
     }
 }

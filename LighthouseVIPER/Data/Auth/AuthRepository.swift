@@ -2,7 +2,7 @@
 //  AuthRepository.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/02/03.
+//  Created by Kenji Arai on 2026/02/03.
 //
 
 import Foundation

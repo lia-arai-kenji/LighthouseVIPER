@@ -2,7 +2,7 @@
 //  AuthService.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/02/03.
+//  Created by Kenji Arai on 2026/02/03.
 //
 
 import Foundation
@@ -25,7 +25,7 @@ class AuthServiceImpl: AuthService {
     }
     
     func authentication(id: String, password: String) async throws {
-        LogUtil.debug()
+        LogUtil.debug()            
         do {
             try await wrapper.authentication(id: id, password: password)
             repository.id = id

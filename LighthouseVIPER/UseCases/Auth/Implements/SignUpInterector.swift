@@ -2,12 +2,12 @@
 //  SignUpInteractor.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/02/24.
+//  Created by Kenji Arai on 2026/02/24.
 //
 
 import Foundation
 
-class SignUpInteractor: AuthContracts.SignUp.UseCase {
+class SignUpInteractor: AuthUseCases.SignUp {
 
     var repository: AuthRepository
     var service: any AuthService
@@ -17,7 +17,7 @@ class SignUpInteractor: AuthContracts.SignUp.UseCase {
         self.service = service
     }
     
-    func execute(_ input: AuthContracts.SignUp.Params) async throws -> () {
+    func execute(_ input: AuthUseCases.SignUpParams) async throws -> () {
         
     }
 }

@@ -2,7 +2,7 @@
 //  AuthServiceMock.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/02//27.
+//  Created by Kenji Arai on 2026/02//27.
 //
 
 import Foundation

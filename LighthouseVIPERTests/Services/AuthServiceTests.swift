@@ -2,7 +2,7 @@
 //  AuthServiceTests.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/03/05.
+//  Created by Kenji Arai on 2026/03/05.
 //
 
 import XCTest
@@ -17,11 +17,11 @@ class AuthServiceTests: XCTestCase {
     
     override func setUp() {
         let container = Container()
-        AppAssembly().assemble(container: container)
+        AppScope().assemble(container: container)
         AuthServiceTestDI().assemble(container: container)
-        service = container.resolve(AuthService.self)
-        repository = container.resolve(AuthRepository.self)
-        wrapper = (container.resolve(AuthWrapper.self) as? AuthWrapperMock)
+        service = container.require(AuthService.self)
+        repository = container.require(AuthRepository.self)
+        wrapper = (container.require(AuthWrapper.self) as? AuthWrapperMock)
     }
     
     override func tearDown() {

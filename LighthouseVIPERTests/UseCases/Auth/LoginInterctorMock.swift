@@ -1,18 +1,18 @@
 //
-//  LoginInterctorMock.swift
+//  LoginInteractorMock.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/02/27.
+//  Created by Kenji Arai on 2026/02/27.
 //
 
 @testable import LighthouseVIPER
 
-class LoginInteractorMock: AuthContracts.Login.UseCase {
-    
+class LoginInteractorMock: AuthUseCases.Login {
+
     var isSuccess: Bool = false
     
-    func execute(_ input: AuthContracts.Login.Params) async throws {
-        if !isSuccess {
+    func execute(_ input: AuthUseCases.LoginParams) async throws {
+        if await !isSuccess {
             throw AuthError()
         }
         return

@@ -7,13 +7,8 @@
 
 import Foundation
 
-class SecondUseCase {
-
+struct SecondUseCase {
+    
     var login: AuthLoginUseCase
     var signUp: AuthSignUpUseCase
-    
-    init(login: AuthLoginUseCase, signUp: AuthSignUpUseCase) {
-        self.login = login
-        self.signUp = signUp
-    }
 }

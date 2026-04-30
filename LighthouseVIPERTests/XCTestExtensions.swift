@@ -2,7 +2,7 @@
 //  TestHelper.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/03/11.
+//  Created by Kenji Arai on 2026/03/11.
 //
 
 import XCTest

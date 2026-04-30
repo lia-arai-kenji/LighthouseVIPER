@@ -7,7 +7,7 @@
 
 import Foundation
 import Combine
-
+import SwiftUI
 
 /**
  ユーザーストーリ
@@ -36,45 +36,54 @@ protocol SecondPresentation {
 final class SecondPresenter: SecondPresentation, SecondPresenterOutput {
     
     // input
-    var input: any SecondPresenterInput { return self }
+    var input: (any SecondPresenterInput) { return self }
 
     // output
-    var output: any SecondPresenterOutput { return self }
-    let update = LiAsyncStream.Subject<SecondViewState>()
+    var output: (any SecondPresenterOutput) { return self }
+    internal let update = LiAsyncStream.Subject<SecondViewState>()
     
     // viewState
-    let viewState: LiAsyncStream.Latest<SecondViewState>
+    internal let viewState: LiAsyncStream.Latest<SecondViewState>
         
+    @Published  var state: SecondViewState
     // 参照UseCaseの設定をこれに閉じ込めている
-    let useCase: SecondUseCase
-    let router: SecondRouting
+    private let useCase: SecondUseCase
+    var router: SecondRouting
     
     // 共通Presenter は画面のpresenterにコンポジションする。assemblerからinit時に注入する
-    let mainFlowPresenter: MainFlowPresenter
+    private let mainFlowMediator: MainFlowMediator
     
     init(
         viewState: SecondViewState,
         useCase: SecondUseCase,
         router: SecondRouting,
-        mainFlowPresenter: MainFlowPresenter,
+        mainFlowMediator: MainFlowMediator,
     ) {
         LogUtil.debug()
         self.viewState = LiAsyncStream.Latest(viewState)
+        self.state = viewState
         self.useCase = useCase
         self.router = router
-        self.mainFlowPresenter = mainFlowPresenter
+        self.mainFlowMediator = mainFlowMediator
     }
 }
 
 extension SecondPresenter: SecondPresenterInput {
     
     func onViewDidLoad() {
-        output.update.yield(viewState.value)
+        if !viewState.value.isViewDidLoaded {
+            output.update.yield(viewState.value)
+            viewState.value.isViewDidLoaded = true
+        }            
     }
     
     func tapCallBack() {
         LogUtil.debug()
         router.goBack()
-        mainFlowPresenter.popValue.yield("戻りました！")
+        router.goUIBack()
+        let id = viewState.value.id
+        viewState.value.id += id
+        output.update.yield(viewState.value)
+        mainFlowMediator.popValue.yield("戻りました！")
     }
 }

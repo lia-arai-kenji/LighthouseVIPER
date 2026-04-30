@@ -2,7 +2,7 @@
 //  MainPresenterTests.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/01/16.
+//  Created by Kenji Arai on 2026/01/16.
 //
 
 import XCTest
@@ -12,30 +12,32 @@ import Swinject
 final class MainPresenterTests: XCTestCase {
     
     var presenter: MainPresentation!
-    var loginMock: LoginInteractorMock!
     var routerMock: MainRouterMock!
     var authWrapperMock: AuthWrapperMock!
-    var mainFlowPresenter: MainFlowPresenter!
+    var mainFlowMediator: MainFlowMediator!
+    var authRepository: AuthRepository!
     var cancellables = LiAsyncStream.Cancellables()
     var container: Container!
     
     override func setUp() {
         container = Container()
-        AppAssembly().assemble(container: container)
-        MainFlowAssembly().assemble(container: container)
-        let assembler = MainPresenterTestAssembler(container: container)
-        presenter = assembler.assemble()
-        routerMock = assembler.mockRouter
-        mainFlowPresenter = assembler.mainFlowPresenter
-        authWrapperMock = assembler.container.resolve(AuthWrapper.self) as? AuthWrapperMock
+        AppScope().assemble(container: container)
+        MainSceneTestDI().assemble(container: container)
+        let assembler = MainSceneAssembler(container)
+        guard let vc = assembler.navigationController().viewControllers.first as? MainViewController else { return }
+        presenter = vc.presenter
+        routerMock = container.require(MainRouterMock.self)
+        mainFlowMediator = container.require(MainFlowMediator.self)
+        authRepository = container.require(AuthRepository.self)
+        authWrapperMock = container.require(AuthWrapperMock.self)
     }
     
     override func tearDown() {
         presenter = nil
-        loginMock = nil
         routerMock = nil
         authWrapperMock = nil
-        mainFlowPresenter = nil
+        mainFlowMediator = nil
+        authRepository = nil
         container = nil
         cancellables.cancelAll()
         cancellables.removeAll()
@@ -82,17 +84,19 @@ final class MainPresenterTests: XCTestCase {
         let task2 = presenter.input.tappedLogin()
         await task.value
         await task2.value
-
+        
         // then
         XCTAssertTrue(presenter.viewState.value.noticeLabelHidden)
         XCTAssertTrue(routerMock.isGoNextCalled)
+        XCTAssertEqual(authRepository.id, "id")
+        XCTAssertEqual(authRepository.password, "password")
     }
     
     func test_onTappedLogin_failure() async throws {
-        presenter.viewState.value.id = "id"
-        presenter.viewState.value.password = "password"
-        authWrapperMock.id = "any"
-        authWrapperMock.password = "any"
+        presenter.viewState.value.id = "any"
+        presenter.viewState.value.password = "any"
+        authWrapperMock.id = "id"
+        authWrapperMock.password = "password"
         
         // when
         let task = presenter.input.tappedLogin()
@@ -108,7 +112,7 @@ final class MainPresenterTests: XCTestCase {
     
     func test_nextScreen_back() {
         // given
-        let otherFLowPresenter = container.resolve(MainFlowPresenter.self)
+        let otherFLowMediator = container.require(MainFlowMediator.self)
         presenter.viewState.value.id = "id"
         
         let exp = expectation(description: "test_nextScreen_back")
@@ -121,11 +125,40 @@ final class MainPresenterTests: XCTestCase {
             .store(in: &cancellables)
         
         // when
-        otherFLowPresenter?.popValue.yield("any")
+        otherFLowMediator.popValue.yield("any")
         
         // then
-        wait(for: [exp], timeout: 1)
+        wait(for: [exp], timeout: 5)
         XCTAssertEqual(actualValue, "any")
     }
+    
+    func test_MainAssemblySuccess() throws {
+        // given
+        container = Container()
+        AppScope().assemble(container: container)
+        MainSceneDI().assemble(container: container)
+        // when
+        let navi = MainSceneAssembler(container).navigationController()
+        //
+        let vc = try XCTUnwrap(navi.viewControllers.first as? MainViewController)
+        XCTAssertNotNil(vc.presenter)
+    }
+    
+    func test_SecondDI_resolve_Success() {
+        // given
+        container = Container()
+        // アプリ全体Scopeを立ち上げる
+        AppScope().assemble(container: container)
+        // フローの起点となる MainView の Assembly を生成すると MainFLowScope が立ち上がる
+        MainSceneDI().assemble(container: container)
+        // MainFLowScope が立ち上がったcontainer を引き継いでSecondViewを assembleする
+        SecondSceneDI().assemble(container: container)
+        // when
+        // SecondViewを生成する際に、MainFlowScopeのmediatorをSecondPresenterに注入する。
+        // これができていれば、SecondViewはMainFlowScopeのmediatorを通じてMainViewと通信できる。
+        let vc = SecondAssembler(container).viewController(reply: "any")
+        // then
+        let viewState = vc.presenter.viewState.value as SecondViewState
+        XCTAssertEqual(viewState.id, "any")
+    }
 }
-

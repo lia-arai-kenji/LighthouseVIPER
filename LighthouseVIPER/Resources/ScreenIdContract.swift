@@ -2,7 +2,7 @@
 //  ScreenIdContract.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/03/13.
+//  Created by Kenji Arai on 2026/03/13.
 //
 
 import Foundation

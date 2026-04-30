@@ -2,7 +2,7 @@
 //  AuthServiceDI.swift
 //  LighthouseVIPER
 //
-//  Created by udwiqut on 2026/02/25.
+//  Created by Kenji Arai on 2026/02/25.
 //
 
 import Swinject
@@ -16,9 +16,10 @@ struct AuthServiceDI: Assembly {
         // service
         container.register(AuthService.self) { r in
             AuthServiceImpl(
-                repository: r.resolve(AuthRepository.self)!,
-                wrapper: r.resolve(AuthWrapper.self)!,
+                repository: r.require(AuthRepository.self),
+                wrapper: r.require(AuthWrapper.self),
             )
         }
     }
 }
+

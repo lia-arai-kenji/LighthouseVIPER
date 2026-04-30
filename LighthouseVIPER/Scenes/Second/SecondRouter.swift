@@ -7,21 +7,25 @@
 
 import UIKit
 import Swinject
+import SwiftUI
 
 protocol SecondRouting {
     
     func goBack()
+    func goUIBack()
 }
 
 @MainActor
-class SecondRouter: SecondRouting {
+class SecondRouter: @preconcurrency SecondRouting {
     
     var instance: SecondViewController
+    var hosting: UIHostingController<SecondUI>?
     var container: Container
         
-    init(instance: SecondViewController, container: Container) {
+    init(instance: SecondViewController, hosting: UIHostingController<SecondUI>?, container: Container) {
         LogUtil.debug()
         self.instance = instance
+        self.hosting = hosting
         self.container = container
     }
     
@@ -30,4 +34,17 @@ class SecondRouter: SecondRouting {
         instance.navigationController?.popViewController(animated: true)
     }
     
+    func goUIBack() {
+        hosting?.navigationController?.popViewController(animated: true)
+    }
+}
+
+
+// MARK: Preview
+
+class PreviewSecondRouter: SecondRouting {
+    
+    func goBack() {}
+    
+    func goUIBack() {}
 }

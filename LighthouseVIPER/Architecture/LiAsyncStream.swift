@@ -318,7 +318,7 @@ extension Task where Success == Void, Failure == Never {
         if let first = cancellables.first  {
             LogUtil.debug("cancel previous task")
             first.cancel()
-            cancellables.removeFirst()
+            cancellables.remove(first)
         }
         return self
     }
