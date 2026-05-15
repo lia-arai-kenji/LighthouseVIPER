@@ -17,7 +17,6 @@ protocol MainRouting: AnyObject {
 
 class MainRouter: MainRouting {
     
-    @MainActor
     weak var instance: MainViewController?
     let container: Container
     
@@ -31,6 +30,7 @@ class MainRouter: MainRouting {
         LogUtil.debug()
         Task { @MainActor in
             // 画面間のデータ受け渡しはassmble経由で行う
+            SecondSceneDI().assemble(container: container)
             let vc = SecondAssembler(container).viewController(reply: reply)
             instance?.navigationController?.pushViewController(vc, animated: true)
         }
@@ -39,6 +39,7 @@ class MainRouter: MainRouting {
     func goSecondUI(reply: String) {
         LogUtil.debug()
         Task { @MainActor in
+            SecondSceneDI().assemble(container: container)
             let hosting = SecondAssembler(container).swiftUI(reply: reply)
             instance?.navigationController?.pushViewController(hosting, animated: true)
         }

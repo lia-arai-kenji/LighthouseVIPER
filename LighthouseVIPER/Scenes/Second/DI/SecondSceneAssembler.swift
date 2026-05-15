@@ -10,24 +10,25 @@ import SwiftUI
 import Swinject
 import RswiftResources
 
-@MainActor
 final class SecondAssembler {
     
     let container: Container
     let instance: SecondViewController
     var hosting: UIHostingController<SecondUI>?
     
+    @MainActor
     init(_ container: Container) {
         self.container = Container(parent: container)
         self.instance = SecondAssembler.instantiate()
     }
     
+    @MainActor
     func viewController(reply: String) -> SecondViewController {
-        SecondSceneDI().assemble(container: container)
         instance.presenter = assemble(reply: reply)
         return instance
     }
     
+    @MainActor
     private static func instantiate() -> SecondViewController {
         guard let instance = R.storyboard.main.secondViewController() else {
             fatalError("fatalError SecondViewController is nil.")
@@ -35,8 +36,8 @@ final class SecondAssembler {
         return instance
     }
     
+    @MainActor
     func swiftUI(reply: String) -> UIHostingController<SecondUI> {
-        SecondSceneDI().assemble(container: container)
         let observable = SecondUIObservable(presenter: assemble(reply: reply))
         let ui = SecondUI(observable: observable)
         let result = UIHostingController(rootView: ui)
@@ -70,6 +71,7 @@ final class SecondAssembler {
 
 extension SecondAssembler {
     
+    @MainActor
     static func preview(reply: String) -> SecondPresentation {
         let container = Container()
         PreviewSecondSceneDI().assemble(container: container)

@@ -9,8 +9,7 @@ import UIKit
 import SwiftUI
 import Swinject
 
-
-typealias SecondRouterRegistry = @MainActor (
+typealias SecondRouterRegistry = (
     _ instance: SecondViewController,
     _ hosting: UIHostingController<SecondUI>?,
 ) -> SecondRouting
@@ -19,7 +18,7 @@ struct SecondSceneDI: Assembly {
     
     func assemble(container: Container) {
         container.register(SecondRouterRegistry.self) { [unowned container] _ in
-            { @MainActor instance, hosting in
+            { instance, hosting in
                 SecondRouter(instance: instance, hosting: hosting, container: container)
             }
         }
@@ -55,7 +54,7 @@ struct PreviewSecondSceneDI: Assembly {
         MainFlowScope().assemble(container: container)
         SecondUseCaseDI().assemble(container: container)
         container.register(SecondRouterRegistry.self) { _ in
-            { @MainActor _, _ in
+            { _, _ in
                 PreviewSecondRouter()
             }
         }
