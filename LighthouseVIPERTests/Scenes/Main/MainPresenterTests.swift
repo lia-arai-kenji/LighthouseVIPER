@@ -25,8 +25,7 @@ final class MainPresenterTests: XCTestCase {
         MainFlowScope().assemble(container: container)
         MainSceneTestDI().assemble(container: container)
         let assembler = MainSceneAssembler(container)
-        guard let vc = assembler.navigationController().viewControllers.first as? MainViewController else { return }
-        presenter = vc.presenter
+        presenter = assembler.presenter()
         routerMock = container.require(MainRouterMock.self)
         mainFlowMediator = container.require(MainFlowMediator.self)
         authRepository = container.require(AuthRepository.self)
@@ -134,17 +133,20 @@ final class MainPresenterTests: XCTestCase {
         XCTAssertEqual(actualValue, "any")
     }
     
+    @MainActor
     func test_MainAssemblySuccess() throws {
         // given
         // TODO: MainSceneDIの実施順序は、MainSceneAssemblerのnavigationController()を呼び出す前でなければならないため、Test用に変えて本番環境を使うテストは別モジュールで実施する
         // when
         let navi = MainSceneAssembler(container).navigationController()
         //
-        let vc = try XCTUnwrap(navi.viewControllers.first as? MainViewController)
+        let vc = try XCTUnwrap(navi?.viewControllers.first as? MainViewController)
         XCTAssertNotNil(vc.presenter)
     }
     
+    @MainActor
     func test_SecondDI_resolve_Success() {
+        
         // given
         // MainFLowScope が立ち上がったcontainer を引き継いでSecondViewを assembleする
         SecondSceneDI().assemble(container: container)
