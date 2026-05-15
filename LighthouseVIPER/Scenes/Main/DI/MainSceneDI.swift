@@ -14,7 +14,7 @@ typealias MainRouterRegistry = (_ instance: MainViewController?) -> MainRouting
 struct MainSceneDI: Assembly {
     
     func assemble(container: Container) {
-        // ユニットテストでSerivceはテスト向けに差し替える
+        // ユニットテストではSerivceはテスト向けに差し替える
         AuthServiceDI().assemble(container: container)
         // MainSceneで必要なUseCaseとRouting
         MainModulesDI().assemble(container: container)
