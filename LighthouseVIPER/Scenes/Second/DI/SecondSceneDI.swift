@@ -17,18 +17,15 @@ typealias SecondRouterRegistry = (
 struct SecondSceneDI: Assembly {
     
     func assemble(container: Container) {
-        container.register(SecondRouterRegistry.self) { [unowned container] _ in
-            { instance, hosting in
-                SecondRouter(instance: instance, hosting: hosting, container: container)
-            }
-        }
+        AuthServiceDI().assemble(container: container)
+        SecondModulesDI().assemble(container: container)
     }
 }
 
-struct SecondUseCaseDI: Assembly {
+struct SecondModulesDI: Assembly {
     
     func assemble(container: Container) {
-        AuthServiceDI().assemble(container: container)
+        // SecondUseCases
         container.register(AuthLoginUseCase.self) { r in
             LoginInteractor(
                 repository: r.require(AuthRepository.self),
@@ -41,6 +38,12 @@ struct SecondUseCaseDI: Assembly {
                 service: r.require(AuthService.self),
             )
         }
+        // SecondRouting
+        container.register(SecondRouterRegistry.self) { [unowned container] _ in
+            { instance, hosting in
+                SecondRouter(instance: instance, hosting: hosting, container: container)
+            }
+        }
     }
 }
 
@@ -52,7 +55,7 @@ struct PreviewSecondSceneDI: Assembly {
     func assemble(container: Container) {
         AppScope().assemble(container: container)
         MainFlowScope().assemble(container: container)
-        SecondUseCaseDI().assemble(container: container)
+        SecondModulesDI().assemble(container: container)
         container.register(SecondRouterRegistry.self) { _ in
             { _, _ in
                 PreviewSecondRouter()

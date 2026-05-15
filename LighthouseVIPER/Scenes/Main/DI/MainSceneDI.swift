@@ -16,22 +16,18 @@ struct MainSceneDI: Assembly {
     func assemble(container: Container) {
         // ユニットテストでSerivceはテスト向けに差し替える
         AuthServiceDI().assemble(container: container)
-        // MainUseCase
-        MainUseCaseDI().assemble(container: container)
-        container.register(MainRouterRegistry.self) { [unowned container] _ in
-            { instance in
-                MainRouter(instance: instance, container: container)
-            }
-        }
+        // MainSceneで必要なUseCaseとRouting
+        MainModulesDI().assemble(container: container)
     }
 }
 
 // MARK: MainUseCaseDI
 
 /// - Note: ユニットテストでも本物を参照する
-struct MainUseCaseDI: Assembly {
+struct MainModulesDI: Assembly {
     
     func assemble(container: Container) {
+        // MainUseCases
         container.register(AuthLoginUseCase.self) { r in
             LoginInteractor(
                 repository: r.require(AuthRepository.self),
@@ -44,6 +40,13 @@ struct MainUseCaseDI: Assembly {
                 service: r.require(AuthService.self),
             )
         }
+        // MainRouting
+        container.register(MainRouterRegistry.self) { [unowned container] _ in
+            { instance in
+                MainRouter(instance: instance, container: container)
+            }
+        }
+
     }
 }
 

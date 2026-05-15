@@ -5,6 +5,7 @@
 //  Created by Kenji Arai on 2026/03/05.
 //
 
+import Cuckoo
 import XCTest
 import Swinject
 @testable import LighthouseVIPER
@@ -13,7 +14,7 @@ class AuthServiceTests: XCTestCase {
 
     var service: AuthService!
     var repository: AuthRepository!
-    var wrapper: AuthWrapperMock!
+    var wrapper: MockAuthWrapper!
     
     override func setUp() {
         let container = Container()
@@ -21,7 +22,7 @@ class AuthServiceTests: XCTestCase {
         AuthServiceTestDI().assemble(container: container)
         service = container.require(AuthService.self)
         repository = container.require(AuthRepository.self)
-        wrapper = (container.require(AuthWrapper.self) as? AuthWrapperMock)
+        wrapper = (container.require(AuthWrapper.self) as? MockAuthWrapper)
     }
     
     override func tearDown() {
@@ -30,8 +31,9 @@ class AuthServiceTests: XCTestCase {
     
     func test_authenticationSuccess() async throws {
         // given
-        wrapper.id = "id"
-        wrapper.password = "password"
+        wrapper.givenAuthentication()
+//        wrapper.id = "id"
+//        wrapper.password = "password"
         // when
         do {
             try await service.authentication(id: "id", password: "password")
@@ -45,8 +47,9 @@ class AuthServiceTests: XCTestCase {
     
     func test_authenticationFailure() async throws {
         // given
-        wrapper.id = "id"
-        wrapper.password = "password"
+        wrapper.givenAuthentication()
+//        wrapper.id = "id"
+//        wrapper.password = "password"
         // when
         do {
             try await service.authentication(id: "any", password: "any")

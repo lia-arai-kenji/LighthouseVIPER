@@ -14,15 +14,17 @@ class MainSceneTestDI: Assembly {
         // Wrapper は Mock
         AuthServiceTestDI().assemble(container: container)
         // useCase はプロダクトコード
-        MainUseCaseDI().assemble(container: container)
-        // 参照側で簡易に取得したため Mock は実態を一旦DIする
-        container.register(MainRouterMock.self) { _ in MainRouterMock() }
-            .inObjectScope(.container)
-        container.register(MainRouterRegistry.self) { r in
-            { _ in
-                r.require(MainRouterMock.self)
-            }
-        }
+        MainModulesDI().assemble(container: container)
+//        // 参照側で簡易に取得したため Mock は実態を一旦DIする
+//        container.register(MainRouting.self) { [unowned container ] r in
+//            r.requir.self)(nil)
+//            MainRouter(instance: nil, container: container)
+//        }.inObjectScope(.container)
+//        container.register(MainRouterRegistry.self) { r in
+//            { _ in
+//                r.require(MainRouting.self)
+//            }
+//        }
     }
 }
 
