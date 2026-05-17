@@ -9,7 +9,7 @@ import UIKit
 import Swinject
 
 /// Swinject register を使って後から必要な要素を注入するための typeAlias
-typealias MainRouterRegistry = (_ instance: MainViewController) -> MainRouting
+typealias MainRouterRegistry = (_ instance: MainViewController?) -> MainRouting
 
 struct MainSceneDI: Assembly {
     

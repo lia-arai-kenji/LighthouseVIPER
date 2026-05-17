@@ -12,7 +12,7 @@ class LoginInteractorMock: AuthUseCases.Login {
     var isSuccess: Bool = false
     
     func execute(_ input: AuthUseCases.LoginParams) async throws {
-        if await !isSuccess {
+        if !isSuccess {
             throw AuthError()
         }
         return

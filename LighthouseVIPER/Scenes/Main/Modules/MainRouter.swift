@@ -20,7 +20,7 @@ class MainRouter: MainRouting {
     weak var instance: MainViewController?
     let container: Container
     
-    init(instance: MainViewController, container: Container) {
+    init(instance: MainViewController?, container: Container) {
         LogUtil.debug()
         self.instance = instance
         self.container = container

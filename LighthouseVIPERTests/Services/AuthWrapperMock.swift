@@ -15,7 +15,7 @@ class AuthWrapperMock: AuthWrapper {
 
     func authentication(id: String, password: String) async throws {
         
-        guard await self.id == id, await self.password == password else {
+        guard self.id == id, self.password == password else {
             throw AuthError()
         }
     }

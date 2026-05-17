@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47E75FA12FB6B5A400AE6BCD /* Cuckoo in Frameworks */ = {isa = PBXBuildFile; productRef = 47E75FA02FB6B5A400AE6BCD /* Cuckoo */; };
 		F6A0CB212F68DECC00A56310 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F6A0CB202F68DECC00A56310 /* Swinject */; };
 		F6D7C3F22F68DACB0007B13C /* LighthouseVIPERUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D7C3EF2F68DACB0007B13C /* LighthouseVIPERUITests.swift */; };
 		F6D7C3F32F68DACB0007B13C /* LighthouseVIPERUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D7C3F02F68DACB0007B13C /* LighthouseVIPERUITestsLaunchTests.swift */; };
@@ -15,9 +16,8 @@
 		F6FC77352FA33BF3008607BA /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772F2FA33BF3008607BA /* LoginInteractorTests.swift */; };
 		F6FC77362FA33BF3008607BA /* SignUpInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77312FA33BF3008607BA /* SignUpInteractorMock.swift */; };
 		F6FC77372FA33BF3008607BA /* MainPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77232FA33BF3008607BA /* MainPresenterTests.swift */; };
-		F6FC77382FA33BF3008607BA /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77342FA33BF3008607BA /* XCTestExtensions.swift */; };
+		F6FC77382FA33BF3008607BA /* XCTestInline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77342FA33BF3008607BA /* XCTestInline.swift */; };
 		F6FC77392FA33BF3008607BA /* AuthUseCasesMockDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772E2FA33BF3008607BA /* AuthUseCasesMockDI.swift */; };
-		F6FC773A2FA33BF3008607BA /* HelloViperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77222FA33BF3008607BA /* HelloViperTests.swift */; };
 		F6FC773B2FA33BF3008607BA /* WebApiServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772C2FA33BF3008607BA /* WebApiServiceMock.swift */; };
 		F6FC773C2FA33BF3008607BA /* AuthServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77282FA33BF3008607BA /* AuthServiceMock.swift */; };
 		F6FC773D2FA33BF3008607BA /* LoginInterctorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77302FA33BF3008607BA /* LoginInterctorMock.swift */; };
@@ -46,12 +46,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		47E75FAE2FB6B5E300AE6BCD /* Cuckoofile.toml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cuckoofile.toml; sourceTree = "<group>"; };
 		F6C865C32F2CAED20098E057 /* LighthouseVIPER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighthouseVIPER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C865DC2F2CAED40098E057 /* LighthouseVIPERTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseVIPERTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C865E62F2CAED40098E057 /* LighthouseVIPERUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseVIPERUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6D7C3EF2F68DACB0007B13C /* LighthouseVIPERUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighthouseVIPERUITests.swift; sourceTree = "<group>"; };
 		F6D7C3F02F68DACB0007B13C /* LighthouseVIPERUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighthouseVIPERUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		F6FC77222FA33BF3008607BA /* HelloViperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloViperTests.swift; sourceTree = "<group>"; };
 		F6FC77232FA33BF3008607BA /* MainPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterTests.swift; sourceTree = "<group>"; };
 		F6FC77242FA33BF3008607BA /* MainRotureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRotureMock.swift; sourceTree = "<group>"; };
 		F6FC77252FA33BF3008607BA /* MainSceneTestDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneTestDI.swift; sourceTree = "<group>"; };
@@ -64,7 +64,7 @@
 		F6FC772F2FA33BF3008607BA /* LoginInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
 		F6FC77302FA33BF3008607BA /* LoginInterctorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInterctorMock.swift; sourceTree = "<group>"; };
 		F6FC77312FA33BF3008607BA /* SignUpInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractorMock.swift; sourceTree = "<group>"; };
-		F6FC77342FA33BF3008607BA /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
+		F6FC77342FA33BF3008607BA /* XCTestInline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestInline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -138,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E75FA12FB6B5A400AE6BCD /* Cuckoo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				F6D7C3E12F68DAC60007B13C /* LighthouseVIPER */,
+				47E75FAE2FB6B5E300AE6BCD /* Cuckoofile.toml */,
 				F6D7C3ED2F68DAC90007B13C /* LighthouseVIPERTests */,
 				F6D7C3F12F68DACB0007B13C /* LighthouseVIPERUITests */,
 				F6C865C42F2CAED20098E057 /* Products */,
@@ -189,11 +191,10 @@
 		F6D7C3ED2F68DAC90007B13C /* LighthouseVIPERTests */ = {
 			isa = PBXGroup;
 			children = (
-				F6FC77222FA33BF3008607BA /* HelloViperTests.swift */,
+				F6FC77342FA33BF3008607BA /* XCTestInline.swift */,
 				F6FC77272FA33BF3008607BA /* Scenes */,
 				F6FC772D2FA33BF3008607BA /* Services */,
 				F6FC77332FA33BF3008607BA /* UseCases */,
-				F6FC77342FA33BF3008607BA /* XCTestExtensions.swift */,
 			);
 			path = LighthouseVIPERTests;
 			sourceTree = "<group>";
@@ -303,10 +304,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				47E75FA32FB6B5AF00AE6BCD /* PBXTargetDependency */,
 				F6C865DE2F2CAED40098E057 /* PBXTargetDependency */,
 			);
 			name = LighthouseVIPERTests;
 			packageProductDependencies = (
+				47E75FA02FB6B5A400AE6BCD /* Cuckoo */,
 			);
 			productName = LighthouseVIPERTests;
 			productReference = F6C865DC2F2CAED40098E057 /* LighthouseVIPERTests.xctest */;
@@ -367,6 +370,7 @@
 			packageReferences = (
 				F6A0CB1F2F68DEBD00A56310 /* XCRemoteSwiftPackageReference "Swinject" */,
 				F6FC75F22FA31FFB008607BA /* XCRemoteSwiftPackageReference "R" */,
+				47E75F9F2FB6B5A400AE6BCD /* XCRemoteSwiftPackageReference "Cuckoo" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F6C865C42F2CAED20098E057 /* Products */;
@@ -419,9 +423,8 @@
 				F6FC77352FA33BF3008607BA /* LoginInteractorTests.swift in Sources */,
 				F6FC77362FA33BF3008607BA /* SignUpInteractorMock.swift in Sources */,
 				F6FC77372FA33BF3008607BA /* MainPresenterTests.swift in Sources */,
-				F6FC77382FA33BF3008607BA /* XCTestExtensions.swift in Sources */,
+				F6FC77382FA33BF3008607BA /* XCTestInline.swift in Sources */,
 				F6FC77392FA33BF3008607BA /* AuthUseCasesMockDI.swift in Sources */,
-				F6FC773A2FA33BF3008607BA /* HelloViperTests.swift in Sources */,
 				F6FC773B2FA33BF3008607BA /* WebApiServiceMock.swift in Sources */,
 				F6FC773C2FA33BF3008607BA /* AuthServiceMock.swift in Sources */,
 				F6FC773D2FA33BF3008607BA /* LoginInterctorMock.swift in Sources */,
@@ -445,6 +448,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		47E75FA32FB6B5AF00AE6BCD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 47E75FA22FB6B5AF00AE6BCD /* CuckooPluginSingleFile */;
+		};
 		F6C865DE2F2CAED40098E057 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F6C865C22F2CAED20098E057 /* LighthouseVIPER */;
@@ -667,7 +674,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -690,7 +697,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -783,6 +790,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		47E75F9F2FB6B5A400AE6BCD /* XCRemoteSwiftPackageReference "Cuckoo" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Brightify/Cuckoo.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.1;
+			};
+		};
 		F6A0CB1F2F68DEBD00A56310 /* XCRemoteSwiftPackageReference "Swinject" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Swinject/Swinject.git";
@@ -802,6 +817,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		47E75FA02FB6B5A400AE6BCD /* Cuckoo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47E75F9F2FB6B5A400AE6BCD /* XCRemoteSwiftPackageReference "Cuckoo" */;
+			productName = Cuckoo;
+		};
+		47E75FA22FB6B5AF00AE6BCD /* CuckooPluginSingleFile */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47E75F9F2FB6B5A400AE6BCD /* XCRemoteSwiftPackageReference "Cuckoo" */;
+			productName = "plugin:CuckooPluginSingleFile";
+		};
 		F6A0CB202F68DECC00A56310 /* Swinject */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F6A0CB1F2F68DEBD00A56310 /* XCRemoteSwiftPackageReference "Swinject" */;

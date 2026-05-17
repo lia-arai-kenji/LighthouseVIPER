@@ -12,11 +12,9 @@ import RswiftResources
 final class MainSceneAssembler {
     
     var container: Container
-    let instance: MainViewController
+    var instance: MainViewController?
     
-    @MainActor
     init(_ container: Container) {
-        self.instance = MainSceneAssembler.instantiate()
         self.container = Container(parent: container)
     }
     
@@ -29,14 +27,18 @@ final class MainSceneAssembler {
     }
     
     @MainActor
-    func viewController() -> MainViewController {
-        self.instance.presenter = presenter()
+    func viewController() -> MainViewController? {
+        self.instance = MainSceneAssembler.instantiate()
+        self.instance?.presenter = presenter()
         return instance
     }
     
     @MainActor
-    func navigationController() -> UINavigationController {
-        UINavigationController(rootViewController: viewController())
+    func navigationController() -> UINavigationController? {
+        guard let vc = viewController() else {
+            return nil
+        }
+        return UINavigationController(rootViewController: vc)
     }
     
     func presenter() -> MainPresentation {
