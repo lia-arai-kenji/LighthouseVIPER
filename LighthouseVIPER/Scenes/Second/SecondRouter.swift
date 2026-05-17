@@ -15,13 +15,13 @@ protocol SecondRouting {
     func goUIBack()
 }
 
-@MainActor
-class SecondRouter: @preconcurrency SecondRouting {
+class SecondRouter: SecondRouting {
+
+    weak var instance: SecondViewController?
+    weak var hosting: UIHostingController<SecondUI>?
     
-    var instance: SecondViewController
-    var hosting: UIHostingController<SecondUI>?
-    var container: Container
-        
+    let container: Container
+    
     init(instance: SecondViewController, hosting: UIHostingController<SecondUI>?, container: Container) {
         LogUtil.debug()
         self.instance = instance
@@ -31,11 +31,15 @@ class SecondRouter: @preconcurrency SecondRouting {
     
     func goBack() {
         LogUtil.debug()
-        instance.navigationController?.popViewController(animated: true)
+        Task { @MainActor in
+            instance?.navigationController?.popViewController(animated: true)
+        }
     }
     
     func goUIBack() {
-        hosting?.navigationController?.popViewController(animated: true)
+        Task { @MainActor in
+            hosting?.navigationController?.popViewController(animated: true)
+        }
     }
 }
 

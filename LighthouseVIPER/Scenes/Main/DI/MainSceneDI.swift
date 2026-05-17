@@ -14,7 +14,9 @@ typealias MainRouterRegistry = (_ instance: MainViewController) -> MainRouting
 struct MainSceneDI: Assembly {
     
     func assemble(container: Container) {
-        MainFlowScope().assemble(container: container)
+        // ユニットテストでSerivceはテスト向けに差し替える
+        AuthServiceDI().assemble(container: container)
+        // MainUseCase
         MainUseCaseDI().assemble(container: container)
         container.register(MainRouterRegistry.self) { [unowned container] _ in
             { instance in
@@ -24,10 +26,12 @@ struct MainSceneDI: Assembly {
     }
 }
 
+// MARK: MainUseCaseDI
+
+/// - Note: ユニットテストでも本物を参照する
 struct MainUseCaseDI: Assembly {
     
     func assemble(container: Container) {
-        AuthServiceDI().assemble(container: container)
         container.register(AuthLoginUseCase.self) { r in
             LoginInteractor(
                 repository: r.require(AuthRepository.self),
