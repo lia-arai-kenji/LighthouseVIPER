@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
         AppScope().assemble(container: container)
+        MainFlowScope().assemble(container: container)
         MainSceneDI().assemble(container: container)
         let navi = MainSceneAssembler(container).navigationController()
         window?.rootViewController = navi

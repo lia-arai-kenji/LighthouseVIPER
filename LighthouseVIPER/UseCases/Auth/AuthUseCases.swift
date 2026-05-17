@@ -17,6 +17,7 @@ enum AuthUseCases {
     /// - returns: 成功時
     /// - throws: 失敗時
     struct LoginParams { let id: String, password: String }
+    struct LoginError: Error { let message: String }
     protocol Login: AsyncThrowsExecute<LoginParams, Void> {}
     
     /// SignUp UseCase

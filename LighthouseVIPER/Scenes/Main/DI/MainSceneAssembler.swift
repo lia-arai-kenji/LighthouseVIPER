@@ -9,17 +9,18 @@ import UIKit
 import Swinject
 import RswiftResources
 
-@MainActor
 final class MainSceneAssembler {
     
     var container: Container
     let instance: MainViewController
     
+    @MainActor
     init(_ container: Container) {
         self.instance = MainSceneAssembler.instantiate()
         self.container = Container(parent: container)
     }
     
+    @MainActor
     private static func instantiate() -> MainViewController {
         guard let instance = R.storyboard.main.mainViewController() else {
             fatalError("fatalError MainViewController is nil.")
@@ -27,11 +28,13 @@ final class MainSceneAssembler {
         return instance
     }
     
+    @MainActor
     func viewController() -> MainViewController {
         self.instance.presenter = presenter()
         return instance
     }
     
+    @MainActor
     func navigationController() -> UINavigationController {
         UINavigationController(rootViewController: viewController())
     }

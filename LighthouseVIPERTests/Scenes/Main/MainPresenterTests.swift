@@ -22,6 +22,7 @@ final class MainPresenterTests: XCTestCase {
     override func setUp() {
         container = Container()
         AppScope().assemble(container: container)
+        MainFlowScope().assemble(container: container)
         MainSceneTestDI().assemble(container: container)
         let assembler = MainSceneAssembler(container)
         guard let vc = assembler.navigationController().viewControllers.first as? MainViewController else { return }
@@ -33,6 +34,7 @@ final class MainPresenterTests: XCTestCase {
     }
     
     override func tearDown() {
+        container = nil
         presenter = nil
         routerMock = nil
         authWrapperMock = nil
@@ -134,9 +136,7 @@ final class MainPresenterTests: XCTestCase {
     
     func test_MainAssemblySuccess() throws {
         // given
-        container = Container()
-        AppScope().assemble(container: container)
-        MainSceneDI().assemble(container: container)
+        // TODO: MainSceneDIの実施順序は、MainSceneAssemblerのnavigationController()を呼び出す前でなければならないため、Test用に変えて本番環境を使うテストは別モジュールで実施する
         // when
         let navi = MainSceneAssembler(container).navigationController()
         //
@@ -146,11 +146,6 @@ final class MainPresenterTests: XCTestCase {
     
     func test_SecondDI_resolve_Success() {
         // given
-        container = Container()
-        // アプリ全体Scopeを立ち上げる
-        AppScope().assemble(container: container)
-        // フローの起点となる MainView の Assembly を生成すると MainFLowScope が立ち上がる
-        MainSceneDI().assemble(container: container)
         // MainFLowScope が立ち上がったcontainer を引き継いでSecondViewを assembleする
         SecondSceneDI().assemble(container: container)
         // when
