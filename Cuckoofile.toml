@@ -1,28 +1,16 @@
 # You can define a fallback output for all modules that don't define their own.
 
-[modules.App]
-output = "LighthouseVIPERTests/Generated/AppMocks.swift"
+[modules.LighthouseVIPER]
 imports = ["Foundation", "UIKit", "RswiftResources"]
 testableImports = ["LighthouseVIPER"]
 sources = [
-    "LighthouseVIPER/**/Data/App/*Repository.swift"
-]
-
-[modules.App.options]
-protocolsOnly = true
-keepDocumentation = false
-omitHeaders = true
-
-[modules.Auth]
-output = "LighthouseVIPERTests/Generated/AuthMocks.swift"
-imports = ["Foundation", "UIKit", "RswiftResources"]
-testableImports = ["LighthouseVIPER"]
-sources = [
+    "LighthouseVIPER/**/App/*Repository.swift",
     "LighthouseVIPER/**/Auth/*Repository.swift",
-    "LighthouseVIPER/**/Auth/*Wrapper.swift"
+    "LighthouseVIPER/**/Auth/*Wrapper.swift",
+    "LighthouseVIPER/**/Scenes/**/*Router.swift",
 ]
 
-[modules.Auth.options]
+[modules.LighthouseVIPER.options]
 protocolsOnly = true
 keepDocumentation = false
 omitHeaders = true
