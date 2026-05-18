@@ -14,10 +14,10 @@ protocol AuthService {
     func authentication(id: String, password: String) async throws
 }
 
-class AuthServiceImpl: AuthService {
+struct AuthServiceImpl: AuthService {
     
-    var repository: AuthRepository
-    var wrapper: AuthWrapper
+    let repository: AuthRepository
+    let wrapper: AuthWrapper
     
     init(repository: AuthRepository, wrapper: AuthWrapper) {
         self.repository = repository
