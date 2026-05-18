@@ -16,8 +16,14 @@ struct MainSceneDI: Assembly {
     func assemble(container: Container) {
         // ユニットテストではSerivceはテスト向けに差し替える
         AuthServiceDI().assemble(container: container)
-        // MainSceneで必要なUseCaseとRouting
+        // MainSceneで必要なUseCase
         MainModulesDI().assemble(container: container)
+        // MainRouting
+        container.register(MainRouterRegistry.self) { [unowned container] _ in
+            { instance in
+                MainRouter(instance: instance, container: container)
+            }
+        }
     }
 }
 
@@ -40,13 +46,6 @@ struct MainModulesDI: Assembly {
                 service: r.require(AuthService.self),
             )
         }
-        // MainRouting
-        container.register(MainRouterRegistry.self) { [unowned container] _ in
-            { instance in
-                MainRouter(instance: instance, container: container)
-            }
-        }
-
     }
 }
 
