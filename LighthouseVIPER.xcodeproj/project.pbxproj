@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4782C9322FB6F01A00155EF1 /* MockAuthWrapperExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4782C92F2FB6F01300155EF1 /* MockAuthWrapperExtension.swift */; };
 		47E75FA12FB6B5A400AE6BCD /* Cuckoo in Frameworks */ = {isa = PBXBuildFile; productRef = 47E75FA02FB6B5A400AE6BCD /* Cuckoo */; };
 		F6A0CB212F68DECC00A56310 /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = F6A0CB202F68DECC00A56310 /* Swinject */; };
 		F6D7C3F22F68DACB0007B13C /* LighthouseVIPERUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D7C3EF2F68DACB0007B13C /* LighthouseVIPERUITests.swift */; };
@@ -14,16 +15,12 @@
 		F6FC77102FA32B7D008607BA /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = F6FC770F2FA32B7D008607BA /* RswiftLibrary */; };
 		F6FC77122FA32B7D008607BA /* rswift in Frameworks */ = {isa = PBXBuildFile; productRef = F6FC77112FA32B7D008607BA /* rswift */; };
 		F6FC77352FA33BF3008607BA /* LoginInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772F2FA33BF3008607BA /* LoginInteractorTests.swift */; };
-		F6FC77362FA33BF3008607BA /* SignUpInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77312FA33BF3008607BA /* SignUpInteractorMock.swift */; };
 		F6FC77372FA33BF3008607BA /* MainPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77232FA33BF3008607BA /* MainPresenterTests.swift */; };
 		F6FC77382FA33BF3008607BA /* XCTestInline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77342FA33BF3008607BA /* XCTestInline.swift */; };
 		F6FC77392FA33BF3008607BA /* AuthUseCasesMockDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772E2FA33BF3008607BA /* AuthUseCasesMockDI.swift */; };
 		F6FC773B2FA33BF3008607BA /* WebApiServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772C2FA33BF3008607BA /* WebApiServiceMock.swift */; };
-		F6FC773C2FA33BF3008607BA /* AuthServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77282FA33BF3008607BA /* AuthServiceMock.swift */; };
-		F6FC773D2FA33BF3008607BA /* LoginInterctorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77302FA33BF3008607BA /* LoginInterctorMock.swift */; };
 		F6FC773E2FA33BF3008607BA /* MainSceneTestDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77252FA33BF3008607BA /* MainSceneTestDI.swift */; };
 		F6FC773F2FA33BF3008607BA /* AuthServiceTestDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77292FA33BF3008607BA /* AuthServiceTestDI.swift */; };
-		F6FC77402FA33BF3008607BA /* AuthWrapperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772B2FA33BF3008607BA /* AuthWrapperMock.swift */; };
 		F6FC77412FA33BF3008607BA /* MainRotureMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC77242FA33BF3008607BA /* MainRotureMock.swift */; };
 		F6FC77422FA33BF3008607BA /* AuthServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6FC772A2FA33BF3008607BA /* AuthServiceTests.swift */; };
 /* End PBXBuildFile section */
@@ -46,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4782C92F2FB6F01300155EF1 /* MockAuthWrapperExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAuthWrapperExtension.swift; sourceTree = "<group>"; };
 		47E75FAE2FB6B5E300AE6BCD /* Cuckoofile.toml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cuckoofile.toml; sourceTree = "<group>"; };
 		F6C865C32F2CAED20098E057 /* LighthouseVIPER.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LighthouseVIPER.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6C865DC2F2CAED40098E057 /* LighthouseVIPERTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LighthouseVIPERTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,15 +53,11 @@
 		F6FC77232FA33BF3008607BA /* MainPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterTests.swift; sourceTree = "<group>"; };
 		F6FC77242FA33BF3008607BA /* MainRotureMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRotureMock.swift; sourceTree = "<group>"; };
 		F6FC77252FA33BF3008607BA /* MainSceneTestDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSceneTestDI.swift; sourceTree = "<group>"; };
-		F6FC77282FA33BF3008607BA /* AuthServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceMock.swift; sourceTree = "<group>"; };
 		F6FC77292FA33BF3008607BA /* AuthServiceTestDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTestDI.swift; sourceTree = "<group>"; };
 		F6FC772A2FA33BF3008607BA /* AuthServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceTests.swift; sourceTree = "<group>"; };
-		F6FC772B2FA33BF3008607BA /* AuthWrapperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWrapperMock.swift; sourceTree = "<group>"; };
 		F6FC772C2FA33BF3008607BA /* WebApiServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebApiServiceMock.swift; sourceTree = "<group>"; };
 		F6FC772E2FA33BF3008607BA /* AuthUseCasesMockDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthUseCasesMockDI.swift; sourceTree = "<group>"; };
 		F6FC772F2FA33BF3008607BA /* LoginInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractorTests.swift; sourceTree = "<group>"; };
-		F6FC77302FA33BF3008607BA /* LoginInterctorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInterctorMock.swift; sourceTree = "<group>"; };
-		F6FC77312FA33BF3008607BA /* SignUpInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInteractorMock.swift; sourceTree = "<group>"; };
 		F6FC77342FA33BF3008607BA /* XCTestInline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestInline.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +146,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4782C94D2FB6F67E00155EF1 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				F6FC772A2FA33BF3008607BA /* AuthServiceTests.swift */,
+				F6FC77292FA33BF3008607BA /* AuthServiceTestDI.swift */,
+				4782C92F2FB6F01300155EF1 /* MockAuthWrapperExtension.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		4782C9662FB6F69800155EF1 /* WebApi */ = {
+			isa = PBXGroup;
+			children = (
+				F6FC772C2FA33BF3008607BA /* WebApiServiceMock.swift */,
+			);
+			path = WebApi;
+			sourceTree = "<group>";
+		};
 		F6C865BA2F2CAED20098E057 = {
 			isa = PBXGroup;
 			children = (
@@ -193,8 +205,8 @@
 			children = (
 				F6FC77342FA33BF3008607BA /* XCTestInline.swift */,
 				F6FC77272FA33BF3008607BA /* Scenes */,
-				F6FC772D2FA33BF3008607BA /* Services */,
 				F6FC77332FA33BF3008607BA /* UseCases */,
+				F6FC772D2FA33BF3008607BA /* Services */,
 			);
 			path = LighthouseVIPERTests;
 			sourceTree = "<group>";
@@ -229,11 +241,8 @@
 		F6FC772D2FA33BF3008607BA /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				F6FC77282FA33BF3008607BA /* AuthServiceMock.swift */,
-				F6FC77292FA33BF3008607BA /* AuthServiceTestDI.swift */,
-				F6FC772A2FA33BF3008607BA /* AuthServiceTests.swift */,
-				F6FC772B2FA33BF3008607BA /* AuthWrapperMock.swift */,
-				F6FC772C2FA33BF3008607BA /* WebApiServiceMock.swift */,
+				4782C9662FB6F69800155EF1 /* WebApi */,
+				4782C94D2FB6F67E00155EF1 /* Auth */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -243,8 +252,6 @@
 			children = (
 				F6FC772E2FA33BF3008607BA /* AuthUseCasesMockDI.swift */,
 				F6FC772F2FA33BF3008607BA /* LoginInteractorTests.swift */,
-				F6FC77302FA33BF3008607BA /* LoginInterctorMock.swift */,
-				F6FC77312FA33BF3008607BA /* SignUpInteractorMock.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -421,16 +428,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6FC77352FA33BF3008607BA /* LoginInteractorTests.swift in Sources */,
-				F6FC77362FA33BF3008607BA /* SignUpInteractorMock.swift in Sources */,
 				F6FC77372FA33BF3008607BA /* MainPresenterTests.swift in Sources */,
 				F6FC77382FA33BF3008607BA /* XCTestInline.swift in Sources */,
 				F6FC77392FA33BF3008607BA /* AuthUseCasesMockDI.swift in Sources */,
 				F6FC773B2FA33BF3008607BA /* WebApiServiceMock.swift in Sources */,
-				F6FC773C2FA33BF3008607BA /* AuthServiceMock.swift in Sources */,
-				F6FC773D2FA33BF3008607BA /* LoginInterctorMock.swift in Sources */,
+				4782C9322FB6F01A00155EF1 /* MockAuthWrapperExtension.swift in Sources */,
 				F6FC773E2FA33BF3008607BA /* MainSceneTestDI.swift in Sources */,
 				F6FC773F2FA33BF3008607BA /* AuthServiceTestDI.swift in Sources */,
-				F6FC77402FA33BF3008607BA /* AuthWrapperMock.swift in Sources */,
 				F6FC77412FA33BF3008607BA /* MainRotureMock.swift in Sources */,
 				F6FC77422FA33BF3008607BA /* AuthServiceTests.swift in Sources */,
 			);
