@@ -12,7 +12,7 @@ final class WebApiServiceMock: WebApiService {
     
     var abc: String = ""
     func getGreetingSentence(word: String) async -> String {
-        return await abc
+        return abc
     }
     
     func fetchGreetingReply(greeting: String) async -> String {
