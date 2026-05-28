@@ -13,7 +13,7 @@ import Swinject
 final class MainPresenterTests: XCTestCase {
     
     var presenter: MainPresentation!
-    var routerMock: MainRouting!
+    var mockRouter: MockMainRouting!
     var mockAuthWrapper: MockAuthWrapper!
     var mainFlowMediator: MainFlowMediator!
     var authRepository: AuthRepository!
@@ -27,7 +27,7 @@ final class MainPresenterTests: XCTestCase {
         MainSceneTestDI().assemble(container: container)
         let assembler = MainSceneAssembler(container)
         presenter = assembler.presenter()
-        routerMock = container.require(MainRouterRegistry.self)(nil)
+        mockRouter = container.require(MainRouterRegistry.self)(nil) as? MockMainRouting
         mainFlowMediator = container.require(MainFlowMediator.self)
         authRepository = container.require(AuthRepository.self)
         mockAuthWrapper = container.require(AuthWrapper.self) as? MockAuthWrapper
@@ -36,7 +36,7 @@ final class MainPresenterTests: XCTestCase {
     override func tearDown() {
         container = nil
         presenter = nil
-        routerMock = nil
+        mockRouter = nil
         mockAuthWrapper = nil
         mainFlowMediator = nil
         authRepository = nil
@@ -79,6 +79,9 @@ final class MainPresenterTests: XCTestCase {
         presenter.viewState.value.id = "id"
         presenter.viewState.value.password = "password"
         mockAuthWrapper.givenAuthentication()
+        stub(mockRouter) { stub in
+            when(stub.goSecondUI(reply: any())).thenDoNothing()
+        }
         
         // when
         let task = presenter.input.tappedLogin()
@@ -88,9 +91,10 @@ final class MainPresenterTests: XCTestCase {
         
         // then
         XCTAssertTrue(presenter.viewState.value.noticeLabelHidden)
-//        XCTAssertTrue(routerMock.)
         XCTAssertEqual(authRepository.id, "id")
         XCTAssertEqual(authRepository.password, "password")
+        verify(mockRouter, times(1)).goSecondUI(reply: any())
+        verify(mockRouter, never()).goNext(reply: any())
     }
     
     func test_onTappedLogin_failure() async throws {
@@ -98,6 +102,7 @@ final class MainPresenterTests: XCTestCase {
         presenter.viewState.value.id = "any"
         presenter.viewState.value.password = "any"
         mockAuthWrapper.givenAuthentication()
+        givenGoSecondUI()
         // when
         let task = presenter.input.tappedLogin()
         await task.value
@@ -107,7 +112,8 @@ final class MainPresenterTests: XCTestCase {
         XCTAssertEqual(presenter.viewState.value.password, "")
         XCTAssertFalse(presenter.viewState.value.noticeLabelHidden)
         XCTAssertFalse(presenter.viewState.value.loginButtonEnable)
-//        XCTAssertFalse(routerMock.isGoNextCalled)
+        verify(mockRouter, never()).goSecondUI(reply: any())
+        verify(mockRouter, never()).goNext(reply: any())
     }
     
     func test_nextScreen_back() {
@@ -156,5 +162,11 @@ final class MainPresenterTests: XCTestCase {
         // then
         let viewState = vc.presenter.viewState.value as SecondViewState
         XCTAssertEqual(viewState.id, "any")
+    }
+    
+    private func givenGoSecondUI() {
+        stub(mockRouter) { stub in
+            when(stub.goSecondUI(reply: any())).thenDoNothing()
+        }
     }
 }
