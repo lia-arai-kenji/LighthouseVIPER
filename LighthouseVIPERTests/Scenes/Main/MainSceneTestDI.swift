@@ -14,8 +14,6 @@ class MainSceneTestDI: Assembly {
     func assemble(container: Container) {
         // Wrapper は Mock
         AuthServiceTestDI().assemble(container: container)
-        // useCase はプロダクトコード
-        MainModulesDI().assemble(container: container)
         // 参照側で簡易に取得したため Mock は実態を一旦DIする
         container.register(MainRouting.self) { _ in MockMainRouting() }
             .inObjectScope(.container)

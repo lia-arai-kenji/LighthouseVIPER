@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MainFlowMediator {
+final class AuthFlowMediator {
     
     let popValue = LiAsyncStream.Subject<String>()
 }

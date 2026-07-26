@@ -14,5 +14,7 @@ struct SecondViewState {
     
     var id: String = ""
     
-    var password: String = "back"    
+    var password: String = "back"
+    
+    var reply: String = ""
 }

@@ -11,14 +11,15 @@ import RswiftResources
 
 final class MainSceneAssembler {
     
-    var container: Container
-    var instance: MainViewController?
+    let instance: MainViewController
+    let container: Container
     
     init(_ container: Container) {
+        self.instance = MainSceneAssembler.instantiate()
         self.container = Container(parent: container)
+        AuthFlowScope().assemble(container: self.container)
     }
     
-    @MainActor
     private static func instantiate() -> MainViewController {
         guard let instance = R.storyboard.main.mainViewController() else {
             fatalError("fatalError MainViewController is nil.")
@@ -27,26 +28,22 @@ final class MainSceneAssembler {
     }
     
     @MainActor
-    func viewController() -> MainViewController? {
-        self.instance = MainSceneAssembler.instantiate()
-        self.instance?.presenter = presenter()
+    func viewController() -> MainViewController {
+        MainSceneDI().assemble(container: self.container)
+        self.instance.presenter = presenter()
         return instance
     }
     
     @MainActor
     func navigationController() -> UINavigationController? {
-        guard let vc = viewController() else {
-            return nil
-        }
-        return UINavigationController(rootViewController: vc)
+        return UINavigationController(rootViewController: viewController())
     }
     
     func presenter() -> MainPresentation {
         MainPresenter(
-            viewState: MainViewState(),
             useCase: useCase(),
             router: router(),
-            mainFlowMediator: container.require(MainFlowMediator.self)
+            mainFlowMediator: container.require(AuthFlowMediator.self)
         )
     }
     
@@ -70,7 +67,7 @@ extension MainSceneAssembler {
     static func dummyResource() -> Container {
         let container = Container()
         AppScope().assemble(container: container)
-        MainFlowScope().assemble(container: container)
+        AuthFlowScope().assemble(container: container)
         return container
     }
 }

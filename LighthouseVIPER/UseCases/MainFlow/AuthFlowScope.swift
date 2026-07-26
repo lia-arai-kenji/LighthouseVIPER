@@ -7,10 +7,10 @@
 
 import Swinject
 
-struct MainFlowScope: Assembly {
+struct AuthFlowScope: Assembly {
     
     func assemble(container: Container) {
-        container.register(MainFlowMediator.self) { r in MainFlowMediator() }
+        container.register(AuthFlowMediator.self) { _ in AuthFlowMediator() }
             .inObjectScope(.container)
     }
 }

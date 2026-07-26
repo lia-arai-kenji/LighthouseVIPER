@@ -9,11 +9,5 @@ import UIKit
 import Swinject
 
 class BaseViewController: UIViewController {
-    func startIndicator() {
-        
-    }
-    
-    func stopIndicator() {
-        
-    }
+
 }

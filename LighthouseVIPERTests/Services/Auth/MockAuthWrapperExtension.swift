@@ -2,7 +2,7 @@
 //  MockAuthWrapperExtension.swift
 //  LighthouseVIPER
 //
-//  Created by Kenji Arai on 2026/05/15.
+//  Created by udwiqut on 2026/05/15.
 //
 
 import Cuckoo

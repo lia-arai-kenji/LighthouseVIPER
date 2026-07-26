@@ -8,8 +8,10 @@
 import UIKit
 import Combine
 
+extension SecondViewController: ExampleProtocol {}
+
 @MainActor
-final class SecondViewController: UIViewController {
+final class SecondViewController: BaseViewController {
     
     @IBOutlet weak var replyLabel: UILabel!
     
@@ -20,6 +22,7 @@ final class SecondViewController: UIViewController {
         configureViews()
         render()
         presenter.input.onViewDidLoad()
+        exampleMethod()
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -309,10 +309,20 @@ private final class CancellationState: @unchecked Sendable {
     }
 }
 
-// MARK: LITaskHandler
+// MARK: LiTaskHandler
 typealias LiTaskHandler = Task<Void, Never>
 
 extension Task where Success == Void, Failure == Never {
+    
+    func refresh(in cancellables: inout Set<LiTaskHandler>) -> LiTaskHandler {
+        if let first = cancellables.first  {
+            LogUtil.debug("cancel previous task")
+            first.cancel()
+            cancellables.remove(first)
+        }
+        cancellables.insert(self)
+        return self
+    }
     
     func cancelPrevious(in cancellables: inout Set<LiTaskHandler>) -> LiTaskHandler {
         if let first = cancellables.first  {
@@ -327,5 +337,31 @@ extension Task where Success == Void, Failure == Never {
         cancellables.insert(self)
         return self
     }
+    
+    /// 複数の Task を【並列】で実行し、すべてが完了したときに終わる1つの Task を返す（可変引数版）
+    static func awaitAll(
+        _ tasks: LiTaskHandler...
+    ) -> Task<Void, Never> {
+        // 内部で配列版を呼び出す
+        return .awaitAll(tasks)
+    }
+    
+    /// 複数の Task を【並列】で実行し、すべてが完了したときに終わる1つの Task を返す（配列版）
+    static func awaitAll(
+        _ tasks: [LiTaskHandler]
+    ) -> LiTaskHandler {
+        // 1つの大きなTaskとしてラップして返す
+        return Task {
+            // TaskGroup を使って、動的な数のタスクを安全に並列待ち合わせる
+            await withTaskGroup(of: Void.self) { group in
+                for task in tasks {
+                    group.addTask {
+                        // 格納された各タスクの完了（.value）を並列で待つ
+                        await task.value
+                    }
+                }
+                // すべての addTask が終わるまで自動で待機してくれる
+            }
+        }
+    }
 }
-

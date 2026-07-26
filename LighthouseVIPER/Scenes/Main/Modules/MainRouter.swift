@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 import Swinject
 
-protocol MainRouting: AnyObject {
+protocol MainRouting: AnyRouter {
     
     func goNext(reply: String)
     func goSecondUI(reply: String)
@@ -17,31 +17,37 @@ protocol MainRouting: AnyObject {
 
 class MainRouter: MainRouting {
     
-    weak var instance: MainViewController?
+    weak var instance: UIViewController?
     let container: Container
+
+    let navigation: any NavigationRouting
+    let indicator: any IndicatorRouting
+    let dialog: any DialogRouting
     
     init(instance: MainViewController?, container: Container) {
         LogUtil.debug()
         self.instance = instance
         self.container = container
+        self.navigation = NavigationRouter(instance: instance)
+        self.indicator = IndicatorRouter(instance: instance)
+        self.dialog = DialogRouter(instance: instance)
     }
     
     func goNext(reply: String) {
         LogUtil.debug()
+        SecondSceneDI().assemble(container: container)
         Task { @MainActor in
-            // 画面間のデータ受け渡しはassmble経由で行う
-            SecondSceneDI().assemble(container: container)
+            // 画面間のデータ受け渡しはassmbler経由で行う
             let vc = SecondAssembler(container).viewController(reply: reply)
-            instance?.navigationController?.pushViewController(vc, animated: true)
+            navigation.push(vc: vc)
         }
     }
     
     func goSecondUI(reply: String) {
-        LogUtil.debug()
+        let second = SecondAssembler(container)
         Task { @MainActor in
-            SecondSceneDI().assemble(container: container)
-            let hosting = SecondAssembler(container).swiftUI(reply: reply)
-            instance?.navigationController?.pushViewController(hosting, animated: true)
+            let hosting = second.swiftUI(reply: reply)
+            navigation.push(vc: hosting)
         }
     }
 }

@@ -22,7 +22,7 @@ class SecondRouter: SecondRouting {
     
     let container: Container
     
-    init(instance: SecondViewController, hosting: UIHostingController<SecondUI>?, container: Container) {
+    init(instance: SecondViewController?, hosting: UIHostingController<SecondUI>?, container: Container) {
         LogUtil.debug()
         self.instance = instance
         self.hosting = hosting

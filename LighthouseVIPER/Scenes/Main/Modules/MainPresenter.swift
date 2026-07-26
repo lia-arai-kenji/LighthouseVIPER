@@ -34,8 +34,7 @@ protocol MainPresenterOutput: AnyObject {
     var update: LiAsyncStream.Subject<MainViewState> { get }
 }
 
-
-protocol MainPresentation: AnyObject {
+protocol MainPresentation: AnyPresenter {
     
     var input: MainPresenterInput { get }
     
@@ -45,37 +44,37 @@ protocol MainPresentation: AnyObject {
 }
 
 final class MainPresenter: MainPresentation, MainPresenterOutput {
-        
+    
     // input
     var input: MainPresenterInput { return self }
     
     // output
     var output: MainPresenterOutput { return self }
     let update = LiAsyncStream.Subject<MainViewState>()
-    
+        
     // viewState
     let viewState: LiAsyncStream.Latest<MainViewState>
     
     let useCase: MainUseCase
     let router: MainRouting
-        
-    // 共通Presenter は画面のpresenterにコンポジションする。assemblerからinit時に注入される
-    let mainFlowMediator: MainFlowMediator
     
-    var streamCancellables = LiAsyncStream.Cancellables()
-    var tappedLoginHandler = Set<LiTaskHandler>()
+    // 共通Presenter は画面のpresenterにコンポジションする。assemblerからinit時に注入される
+    private let mainFlowMediator: AuthFlowMediator
+    
+    private var streamCancellables = LiAsyncStream.Cancellables()
+    private var tappedLoginHandler = Set<LiTaskHandler>()
     
     init(
-        viewState: MainViewState,
         useCase: MainUseCase,
         router: MainRouting,
-        mainFlowMediator: MainFlowMediator,
+        mainFlowMediator: AuthFlowMediator,
+        viewState: MainViewState = MainViewState(),
     ) {
         LogUtil.debug()
-        self.viewState = LiAsyncStream.Latest(viewState)
         self.useCase = useCase
         self.router = router
         self.mainFlowMediator = mainFlowMediator
+        self.viewState = LiAsyncStream.Latest(viewState)
         subscribeMainFlowInput()
     }
     
@@ -86,6 +85,8 @@ final class MainPresenter: MainPresentation, MainPresenterOutput {
         tappedLoginHandler.removeAll()
     }
 }
+
+// MARK: MainPresenterInput
 
 extension MainPresenter: MainPresenterInput {
 
@@ -104,11 +105,13 @@ extension MainPresenter: MainPresenterInput {
         output.update.yield(viewState.value)
     }
     
-    func tappedLogin() -> LiTaskHandler {
+    func tappedLogin() -> Task<Void, Never> {
         LogUtil.debug("tappedLogin")
-        return LiTaskHandler { await self.requestLogin() }
-            .cancelPrevious(in: &tappedLoginHandler)
-            .store(in: &tappedLoginHandler)
+        return Task { [weak self] in
+            guard let self else { return }
+            await requestLogin()
+        }
+        .refresh(in: &tappedLoginHandler)
     }
     
     private func requestLogin() async {

@@ -9,6 +9,6 @@ import Foundation
 
 struct MainUseCase {
     
-    let login: AuthLoginUseCase
-    let signUp: AuthSignUpUseCase
+    let login: any AuthUseCases.Login
+    let signUp: any AuthUseCases.SignUp
 }

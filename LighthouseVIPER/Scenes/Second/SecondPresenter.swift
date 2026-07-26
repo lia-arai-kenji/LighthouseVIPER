@@ -45,23 +45,24 @@ final class SecondPresenter: SecondPresentation, SecondPresenterOutput {
     // viewState
     internal let viewState: LiAsyncStream.Latest<SecondViewState>
         
-    @Published  var state: SecondViewState
+    @Published var state: SecondViewState
     // 参照UseCaseの設定をこれに閉じ込めている
-    private let useCase: SecondUseCase
+    let useCase: SecondUseCase
     var router: SecondRouting
     
     // 共通Presenter は画面のpresenterにコンポジションする。assemblerからinit時に注入する
-    private let mainFlowMediator: MainFlowMediator
+    private let mainFlowMediator: AuthFlowMediator
     
     init(
-        viewState: SecondViewState,
+        reply: String,
         useCase: SecondUseCase,
         router: SecondRouting,
-        mainFlowMediator: MainFlowMediator,
+        mainFlowMediator: AuthFlowMediator,
     ) {
         LogUtil.debug()
-        self.viewState = LiAsyncStream.Latest(viewState)
-        self.state = viewState
+        self.viewState = LiAsyncStream.Latest(SecondViewState())
+        viewState.value.id = reply
+        self.state = viewState.value
         self.useCase = useCase
         self.router = router
         self.mainFlowMediator = mainFlowMediator
@@ -74,7 +75,7 @@ extension SecondPresenter: SecondPresenterInput {
         if !viewState.value.isViewDidLoaded {
             output.update.yield(viewState.value)
             viewState.value.isViewDidLoaded = true
-        }            
+        }
     }
     
     func tapCallBack() {

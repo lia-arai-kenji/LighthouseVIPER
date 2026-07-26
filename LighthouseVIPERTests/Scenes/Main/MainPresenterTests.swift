@@ -15,34 +15,35 @@ final class MainPresenterTests: XCTestCase {
     var presenter: MainPresentation!
     var mockRouter: MockMainRouting!
     var mockAuthWrapper: MockAuthWrapper!
-    var mainFlowMediator: MainFlowMediator!
+    var mainFlowMediator: AuthFlowMediator!
     var authRepository: AuthRepository!
     var cancellables = LiAsyncStream.Cancellables()
     var container: Container!
     
     override func setUp() {
+        super.setUp()
         container = Container()
         AppScope().assemble(container: container)
-        MainFlowScope().assemble(container: container)
-        MainSceneTestDI().assemble(container: container)
         let assembler = MainSceneAssembler(container)
+        container = assembler.container
+        MainSceneTestDI().assemble(container: container)
         presenter = assembler.presenter()
         mockRouter = container.require(MainRouterRegistry.self)(nil) as? MockMainRouting
-        mainFlowMediator = container.require(MainFlowMediator.self)
+        mainFlowMediator = container.require(AuthFlowMediator.self)
         authRepository = container.require(AuthRepository.self)
         mockAuthWrapper = container.require(AuthWrapper.self) as? MockAuthWrapper
     }
     
     override func tearDown() {
-        container = nil
+        cancellables.cancelAll()
+        cancellables.removeAll()
         presenter = nil
         mockRouter = nil
         mockAuthWrapper = nil
         mainFlowMediator = nil
         authRepository = nil
         container = nil
-        cancellables.cancelAll()
-        cancellables.removeAll()
+        super.tearDown()
     }
     
     func test_onViewWillAppear() throws {
@@ -79,15 +80,13 @@ final class MainPresenterTests: XCTestCase {
         presenter.viewState.value.id = "id"
         presenter.viewState.value.password = "password"
         mockAuthWrapper.givenAuthentication()
-        stub(mockRouter) { stub in
-            when(stub.goSecondUI(reply: any())).thenDoNothing()
-        }
-        
+        mockRouter.givenGoSecondUI()
         // when
-        let task = presenter.input.tappedLogin()
-        let task2 = presenter.input.tappedLogin()
-        await task.value
-        await task2.value
+        let zipTask = LiTaskHandler.awaitAll(
+            presenter.input.tappedLogin(),
+            presenter.input.tappedLogin()
+        )
+        await zipTask.value
         
         // then
         XCTAssertTrue(presenter.viewState.value.noticeLabelHidden)
@@ -102,10 +101,8 @@ final class MainPresenterTests: XCTestCase {
         presenter.viewState.value.id = "any"
         presenter.viewState.value.password = "any"
         mockAuthWrapper.givenAuthentication()
-        givenGoSecondUI()
         // when
-        let task = presenter.input.tappedLogin()
-        await task.value
+        await presenter.input.tappedLogin().value
 
         // then
         XCTAssertEqual(presenter.viewState.value.id, "")
@@ -118,7 +115,7 @@ final class MainPresenterTests: XCTestCase {
     
     func test_nextScreen_back() {
         // given
-        let otherFLowMediator = container.require(MainFlowMediator.self)
+        let otherFLowMediator = container.require(AuthFlowMediator.self)
         presenter.viewState.value.id = "id"
         
         let exp = expectation(description: "test_nextScreen_back")
@@ -162,11 +159,5 @@ final class MainPresenterTests: XCTestCase {
         // then
         let viewState = vc.presenter.viewState.value as SecondViewState
         XCTAssertEqual(viewState.id, "any")
-    }
-    
-    private func givenGoSecondUI() {
-        stub(mockRouter) { stub in
-            when(stub.goSecondUI(reply: any())).thenDoNothing()
-        }
     }
 }

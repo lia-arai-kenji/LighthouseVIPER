@@ -16,7 +16,6 @@ final class SecondAssembler {
     let instance: SecondViewController
     var hosting: UIHostingController<SecondUI>?
     
-    @MainActor
     init(_ container: Container) {
         self.container = Container(parent: container)
         self.instance = SecondAssembler.instantiate()
@@ -24,11 +23,11 @@ final class SecondAssembler {
     
     @MainActor
     func viewController(reply: String) -> SecondViewController {
+        SecondSceneDI().assemble(container: container)
         instance.presenter = assemble(reply: reply)
         return instance
     }
     
-    @MainActor
     private static func instantiate() -> SecondViewController {
         guard let instance = R.storyboard.main.secondViewController() else {
             fatalError("fatalError SecondViewController is nil.")
@@ -49,10 +48,10 @@ final class SecondAssembler {
     
     private func assemble(reply: String) -> any SecondPresentation {
         return SecondPresenter(
-            viewState: SecondViewState(id: reply),
+            reply: reply,
             useCase: assemble(),
             router: assemble(),
-            mainFlowMediator: container.require(MainFlowMediator.self)
+            mainFlowMediator: container.require(AuthFlowMediator.self)
         )
     }
         

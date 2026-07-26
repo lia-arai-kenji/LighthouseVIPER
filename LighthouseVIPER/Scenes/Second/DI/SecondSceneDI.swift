@@ -10,7 +10,7 @@ import SwiftUI
 import Swinject
 
 typealias SecondRouterRegistry = (
-    _ instance: SecondViewController,
+    _ instance: SecondViewController?,
     _ hosting: UIHostingController<SecondUI>?,
 ) -> SecondRouting
 
@@ -54,7 +54,7 @@ struct PreviewSecondSceneDI: Assembly {
     
     func assemble(container: Container) {
         AppScope().assemble(container: container)
-        MainFlowScope().assemble(container: container)
+        AuthFlowScope().assemble(container: container)
         // SecondUseCases
         container.register(AuthLoginUseCase.self) { r in
             LoginInteractor(
